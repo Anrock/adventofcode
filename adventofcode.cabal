@@ -1,0 +1,28 @@
+cabal-version:       >=1.10
+name:                adventofcode
+version:             0.1.0.0
+author:              Anrock
+maintainer:          anrock623@gmail.com
+build-type:          Simple
+
+executable adventofcode
+  main-is: Main.hs
+  ghc-options: -Wall
+  default-language: Haskell2010
+  default-extensions: LambdaCase
+                    , TypeApplications
+                    , QuasiQuotes
+  build-depends: base
+               , megaparsec
+               , interpolate
+               , containers
+               , pureMD5
+               , bytestring
+               , array
+  other-modules: Year2015.Day1.Solution
+               , Year2015.Day2.Solution
+               , Year2015.Day3.Solution
+               , Year2015.Day4.Solution
+               , Year2015.Day5.Solution
+               , Year2015.Day6.Solution
+               , Year2020.Day5.Solution
