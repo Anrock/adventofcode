@@ -29,7 +29,6 @@ parseAction = do
   _ <- string "through"
   space1
   p2 <- parsePosition
-  _ <- eol
   pure $ t (p1, p2)
 
 parseType :: Parser (Rect -> Action)
@@ -52,7 +51,7 @@ toggle :: Lights -> Rect -> Lights
 toggle = undefined
 
 part1 :: String -> Int
-part1 input = case parse (some parseAction) "" input of
+part1 input = case parse (parseAction `sepEndBy` eol) "" input of
   Left e -> error $ errorBundlePretty e
   Right actions -> countLights $ apply actions initialLights
 
