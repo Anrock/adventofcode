@@ -18,7 +18,7 @@ type Lights = Array Position Bool
 type Parser = Parsec Void String
 
 initialLights :: Lights
-initialLights = Data.Array.listArray ((0, 999), (0, 999)) (repeat False)
+initialLights = Data.Array.listArray ((0, 0), (999, 999)) (repeat False)
 
 parseAction :: Parser Action
 parseAction = do
