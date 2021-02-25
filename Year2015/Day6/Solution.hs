@@ -42,15 +42,6 @@ parsePosition = do
   d2 <- decimal
   pure (d1, d2)
 
-turnOn :: Lights -> Rect -> Lights
-turnOn = undefined
-
-turnOff :: Lights -> Rect -> Lights
-turnOff = undefined
-
-toggle :: Lights -> Rect -> Lights
-toggle = undefined
-
 part1 :: String -> Int
 part1 input = case parse (parseAction `sepEndBy` eol) "" input of
   Left e -> error $ errorBundlePretty e
