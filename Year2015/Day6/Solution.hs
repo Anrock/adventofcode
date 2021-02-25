@@ -9,7 +9,10 @@ import Text.Megaparsec.Char.Lexer (decimal)
 import Data.Array
 
 solve :: String -> IO ()
-solve input = print (part1 input)
+solve input = case parse (parseAction `sepEndBy` eol) "" input of
+  Left e -> error $ errorBundlePretty e
+  Right actions -> do
+    print (part1 actions)
 
 data Action = TurnOn Rect | TurnOff Rect | Toggle Rect deriving (Eq, Show)
 type Position = (Int, Int)
@@ -42,10 +45,8 @@ parsePosition = do
   d2 <- decimal
   pure (d1, d2)
 
-part1 :: String -> Int
-part1 input = case parse (parseAction `sepEndBy` eol) "" input of
-  Left e -> error $ errorBundlePretty e
-  Right actions -> countLights $ apply actions initialLights
+part1 :: Traversable t => t Action -> Int
+part1 actions = countLights $ apply actions initialLights
 
 apply :: Traversable t => t Action -> Lights -> Lights
 apply actions lights = foldl go lights actions
