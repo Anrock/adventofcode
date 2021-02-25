@@ -14,12 +14,12 @@ solve input = print (part1 input)
 data Action = TurnOn Rect | TurnOff Rect | Toggle Rect deriving (Eq, Show)
 type Position = (Int, Int)
 type Rect = (Position, Position)
-type Lights = Array Position Bool
+type Lights = Array Position Int
 
 type Parser = Parsec Void String
 
 initialLights :: Lights
-initialLights = Data.Array.listArray ((0, 0), (999, 999)) (repeat False)
+initialLights = Data.Array.listArray ((0, 0), (999, 999)) (repeat 0)
 
 parseAction :: Parser Action
 parseAction = do
@@ -51,13 +51,15 @@ apply :: Traversable t => t Action -> Lights -> Lights
 apply actions lights = foldl go lights actions
   where go :: Lights -> Action -> Lights
         go l action = case action of
-          TurnOn rect -> l // fmap (, True) (rectToIx rect)
-          TurnOff rect -> l // fmap (, False) (rectToIx rect)
-          Toggle rect -> l // fmap (\pos -> (pos, not (l ! pos))) (rectToIx rect)
+          TurnOn rect -> l // fmap (, 1) (rectToIx rect)
+          TurnOff rect -> l // fmap (, 0) (rectToIx rect)
+          Toggle rect -> l // fmap (\pos -> (pos, toggle (l ! pos))) (rectToIx rect)
+            where toggle 0 = 1
+                  toggle 1 = 0
 
 rectToIx :: Rect -> [Position]
 rectToIx ((x1, y1), (x2, y2)) = [(x, y) | x <- [x1..x2], y <- [y1..y2]]
 
 countLights :: Lights -> Int
-countLights = length . filter (== True) . elems
+countLights = length . filter (== 1) . elems
 
