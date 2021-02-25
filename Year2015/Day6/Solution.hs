@@ -13,6 +13,7 @@ solve input = case parse (parseAction `sepEndBy` eol) "" input of
   Left e -> error $ errorBundlePretty e
   Right actions -> do
     print (part1 actions)
+    print (part2 actions)
 
 data Action = TurnOn Rect | TurnOff Rect | Toggle Rect deriving (Eq, Show)
 type Position = (Int, Int)
@@ -45,6 +46,9 @@ parsePosition = do
   d2 <- decimal
   pure (d1, d2)
 
+rectToIx :: Rect -> [Position]
+rectToIx ((x1, y1), (x2, y2)) = [(x, y) | x <- [x1..x2], y <- [y1..y2]]
+
 part1 :: Traversable t => t Action -> Int
 part1 actions = countLights $ apply1 actions initialLights
 
@@ -58,9 +62,20 @@ apply1 actions lights = foldl go lights actions
             where toggle 0 = 1
                   toggle 1 = 0
 
-rectToIx :: Rect -> [Position]
-rectToIx ((x1, y1), (x2, y2)) = [(x, y) | x <- [x1..x2], y <- [y1..y2]]
-
 countLights :: Lights -> Int
 countLights = length . filter (== 1) . elems
+
+part2 :: Traversable t => t Action -> Int
+part2 actions = countBrightness $ apply2 actions initialLights
+
+apply2 :: Traversable t => t Action -> Lights -> Lights
+apply2 actions lights = foldl go lights actions
+  where go :: Lights -> Action -> Lights
+        go l action = case action of
+          TurnOn rect -> l // fmap (\pos -> (pos, (l ! pos) + 1)) (rectToIx rect)
+          TurnOff rect -> l // fmap (\pos -> (pos, let cur = (l ! pos) in if cur == 0 then 0 else cur - 1)) (rectToIx rect)
+          Toggle rect -> l // fmap  (\pos -> (pos, (l ! pos) + 2)) (rectToIx rect)
+
+countBrightness :: Lights -> Int
+countBrightness = sum . elems
 
