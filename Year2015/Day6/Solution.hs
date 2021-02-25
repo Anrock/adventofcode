@@ -1,3 +1,4 @@
+{-# LANGUAGE TupleSections #-}
 module Year2015.Day6.Solution (solve) where
 
 import Text.Megaparsec
@@ -59,9 +60,9 @@ apply :: Traversable t => t Action -> Lights -> Lights
 apply actions lights = foldl go lights actions
   where go :: Lights -> Action -> Lights
         go l action = case action of
-          TurnOn rect -> lights // (fmap (\pos -> (True, pos)) rectToIx rect)
-          TurnOff rect -> undefined
-          Toggle rect -> undefined
+          TurnOn rect -> l // fmap (, True) (rectToIx rect)
+          TurnOff rect -> l // fmap (, False) (rectToIx rect)
+          Toggle rect -> l // fmap (\pos -> (pos, not (l ! pos))) (rectToIx rect)
 
 rectToIx :: Rect -> [Position]
 rectToIx ((x1, y1), (x2, y2)) = [(x, y) | x <- [x1..x2], y <- [y1..y2]]
