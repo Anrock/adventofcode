@@ -46,10 +46,10 @@ parsePosition = do
   pure (d1, d2)
 
 part1 :: Traversable t => t Action -> Int
-part1 actions = countLights $ apply actions initialLights
+part1 actions = countLights $ apply1 actions initialLights
 
-apply :: Traversable t => t Action -> Lights -> Lights
-apply actions lights = foldl go lights actions
+apply1 :: Traversable t => t Action -> Lights -> Lights
+apply1 actions lights = foldl go lights actions
   where go :: Lights -> Action -> Lights
         go l action = case action of
           TurnOn rect -> l // fmap (, 1) (rectToIx rect)
