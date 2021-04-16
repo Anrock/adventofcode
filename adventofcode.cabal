@@ -7,11 +7,21 @@ build-type:          Simple
 
 executable adventofcode
   main-is: Main.hs
-  ghc-options: -Wall
+  ghc-options: -Wall -O2 -flate-specialise -fspecialise-aggressively -fplugin=Polysemy.Plugin
   default-language: Haskell2010
   default-extensions: LambdaCase
                     , TypeApplications
                     , QuasiQuotes
+                    , DataKinds
+                    , FlexibleContexts
+                    , GADTs
+                    , LambdaCase
+                    , PolyKinds
+                    , RankNTypes
+                    , ScopedTypeVariables
+                    , TypeApplications
+                    , TypeOperators
+                    , TypeFamilies
   build-depends: base
                , megaparsec
                , interpolate
@@ -19,10 +29,13 @@ executable adventofcode
                , pureMD5
                , bytestring
                , array
+               , polysemy
+               , polysemy-plugin
   other-modules: Year2015.Day1.Solution
                , Year2015.Day2.Solution
                , Year2015.Day3.Solution
                , Year2015.Day4.Solution
                , Year2015.Day5.Solution
                , Year2015.Day6.Solution
+               , Year2015.Day7.Solution
                , Year2020.Day5.Solution

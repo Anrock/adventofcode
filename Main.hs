@@ -11,6 +11,7 @@ import qualified Year2015.Day3.Solution
 import qualified Year2015.Day4.Solution
 import qualified Year2015.Day5.Solution
 import qualified Year2015.Day6.Solution
+import qualified Year2015.Day7.Solution
 import qualified Year2020.Day5.Solution
 
 main :: IO ()
@@ -29,6 +30,7 @@ main = do
       "4" -> input >>= Year2015.Day4.Solution.solve
       "5" -> input >>= Year2015.Day5.Solution.solve
       "6" -> input >>= Year2015.Day6.Solution.solve
+      "7" -> input >>= Year2015.Day7.Solution.solve
       _   -> putStrLn [i|Day #{day} not solved in year #{year}|]
     "2020" -> case day of
       "5" -> input >>= Year2020.Day5.Solution.solve
