@@ -22,6 +22,7 @@ executable adventofcode
                     , TypeApplications
                     , TypeOperators
                     , TypeFamilies
+                    , ImportQualifiedPost
   build-depends: base
                , megaparsec
                , interpolate
@@ -31,6 +32,11 @@ executable adventofcode
                , array
                , polysemy
                , polysemy-plugin
+               , aeson
+               , scientific
+               , vector
+               , unordered-containers
+               , text
   other-modules: Year2015.Day1.Solution
                , Year2015.Day2.Solution
                , Year2015.Day3.Solution
@@ -42,4 +48,5 @@ executable adventofcode
                , Year2015.Day9.Solution
                , Year2015.Day10.Solution
                , Year2015.Day11.Solution
+               , Year2015.Day12.Solution
                , Year2020.Day5.Solution

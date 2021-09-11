@@ -16,6 +16,7 @@ import qualified Year2015.Day8.Solution
 import qualified Year2015.Day9.Solution
 import qualified Year2015.Day10.Solution
 import qualified Year2015.Day11.Solution
+import qualified Year2015.Day12.Solution
 import qualified Year2020.Day5.Solution
 
 main :: IO ()
@@ -24,7 +25,8 @@ main = do
   when (length args /= 2) (die "Not enough arguments")
 
   let [year, day] = args
-      input = readFile [i|Year#{year}/Day#{day}/input|]
+      inputFile = [i|Year#{year}/Day#{day}/input|]
+      input = readFile inputFile
 
   case year of
     "2015" -> case day of
@@ -39,6 +41,7 @@ main = do
       "9" -> input >>= Year2015.Day9.Solution.solve
       "10" -> input >>= Year2015.Day10.Solution.solve
       "11" -> input >>= Year2015.Day11.Solution.solve
+      "12" -> Year2015.Day12.Solution.solve inputFile
       _   -> putStrLn [i|Day #{day} not solved in year #{year}|]
     "2020" -> case day of
       "5" -> input >>= Year2020.Day5.Solution.solve
