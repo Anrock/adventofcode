@@ -41,4 +41,5 @@ executable adventofcode
                , Year2015.Day8.Solution
                , Year2015.Day9.Solution
                , Year2015.Day10.Solution
+               , Year2015.Day11.Solution
                , Year2020.Day5.Solution
