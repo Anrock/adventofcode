@@ -50,3 +50,4 @@ executable adventofcode
                , Year2015.Day11.Solution
                , Year2015.Day12.Solution
                , Year2020.Day5.Solution
+               , Year2021.Day5.Solution
